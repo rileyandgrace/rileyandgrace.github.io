@@ -1,76 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>gamsatPercentiles</title>
+    <meta charset="utf-8">
+    <title>JavaSctipt Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
 </head>
-<script type="text/javascript">
-    function ncdf(x, mean, std) {
-        var x = (x - mean) / std
-        var t = 1 / (1 + .2315419 * Math.abs(x))
-        var d = .3989423 * Math.exp(-x * x / 2)
-        var prob = d * t * (.3193815 + t * (-.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))))
-        if (x > 0) prob = 1 - prob
-        return prob
-    }
 
-    function fun1(x) {
-        return ncdf(prob);
-    }
+<body>
+    <div class="container">
+        <form name="calculatorForm">
+            <div class="resultscreen">
+                <div class="heading">Calculator</div>
+                <input type="text" name="evalresult" />
+            </div>
+            <div class="buttons">
+                <div class="line">
+                    <input type="button" name="btn7" value="7" onClick="valuecal(btn7.value)" />
+                    <input type="button" name="btn8" value="8" onClick="valuecal(btn8.value)" />
+                    <input type="button" name="btn9" value="9" onClick="valuecal(btn9.value)" />
+                    <input type="button" name="btndivision" value="/" onClick="valuecal(btndivision.value)" />
+                </div>
 
-    function draw() {
-        var canvas = document.getElementById("canvas");
-        if (null == canvas || !canvas.getContext) return;
+                <div class="line">
+                    <input type="button" name="btn4" value="4" onClick="valuecal(btn4.value)" />
+                    <input type="button" name="btn5" value="5" onClick="valuecal(btn5.value)" />
+                    <input type="button" name="btn6" value="6" onClick="valuecal(btn6.value)" />
+                    <input type="button" name="btnmultiply" value="*" onClick="valuecal(btnmultiply.value)" />
+                </div>
 
-        var axes = {},
-            ctx = canvas.getContext("2d");
-        axes.x0 = .5 + .5 * canvas.width; // x0 pixels from left to x=0
-        axes.y0 = .5 + .5 * canvas.height; // y0 pixels from top to y=0
-        axes.scale = 40; // 40 pixels from x=0 to x=1
-        axes.doNegativeX = true;
+                <div class="line">
+                    <input type="button" name="btn1" value="1" onClick="valuecal(btn1.value)" />
+                    <input type="button" name="btn2" value="2" onClick="valuecal(btn2.value)" />
+                    <input type="button" name="btn3" value="3" onClick="valuecal(btn3.value)" />
+                    <input type="button" name="btnsubtract" value="-" onClick="valuecal(btnsubtract.value)" />
+                </div>
 
-        showAxes(ctx, axes);
-        funGraph(ctx, axes, fun1, "rgb(11,153,11)", 1);
-    }
+                <div class="line">
+                    <input type="button" name="btn0" value="0" onClick="valuecal(btn0.value)" />
+                    <input type="button" name="btnDot" value="." onClick="valuecal(btnDot.value)" />
+                    <input type="button" name="btnAddition" value="+" onClick="valuecal(btnAddition.value)" />
+                    <input type="button" name="result" value="=" onClick="evalresult.value=eval(evalresult.value)" />
+                </div>
+            </div>
+        </form>
+    </div>
 
-    function funGraph(ctx, axes, func, color, thick) {
-        var xx, yy, dx = 4,
-            x0 = axes.x0,
-            y0 = axes.y0,
-            scale = axes.scale;
-        var iMax = Math.round((ctx.canvas.width - x0) / dx);
-        var iMin = axes.doNegativeX ? Math.round(-x0 / dx) : 0;
-        ctx.beginPath();
-        ctx.lineWidth = thick;
-        ctx.strokeStyle = color;
-
-        for (var i = iMin; i <= iMax; i++) {
-            xx = dx * i;
-            yy = scale * func(xx / scale);
-            if (i == iMin) ctx.moveTo(x0 + xx, y0 - yy);
-            else ctx.lineTo(x0 + xx, y0 - yy);
-        }
-        ctx.stroke();
-    }
-
-    function showAxes(ctx, axes) {
-        var x0 = axes.x0,
-            w = ctx.canvas.width;
-        var y0 = axes.y0,
-            h = ctx.canvas.height;
-        var xmin = axes.doNegativeX ? 0 : x0;
-        ctx.beginPath();
-        ctx.strokeStyle = "rgb(128,128,128)";
-        ctx.moveTo(xmin, y0);
-        ctx.lineTo(w, y0); // X axis
-        ctx.moveTo(x0, 0);
-        ctx.lineTo(x0, h); // Y axis
-        ctx.stroke();
-    }
-</script>
-
-<body onload="draw()">
-    <canvas id="canvas" width="502" height="108"></canvas>
+    <script src="script.js"></script>
 </body>
 
 </html>
